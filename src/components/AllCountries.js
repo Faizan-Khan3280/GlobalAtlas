@@ -1,10 +1,11 @@
-// src/components/CountryList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import './CountryDetails.css';
 
 const CountryList = () => {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState([]); // Countries with sorting applied
+  const [originalCountries, setOriginalCountries] = useState([]); // Original country list
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortOrder, setSortOrder] = useState('name'); // Default sort by name
@@ -14,7 +15,8 @@ const CountryList = () => {
   useEffect(() => {
     axios.get('https://restcountries.com/v3.1/all')
       .then((response) => {
-        setCountries(response.data);
+        setCountries(response.data); // Set the countries with applied filters
+        setOriginalCountries(response.data); // Store the original country list
         setLoading(false);
       })
       .catch((error) => {
@@ -47,8 +49,7 @@ const CountryList = () => {
   // Handle sorting changes
   const handleSortChange = (sortBy) => {
     if (sortBy === sortOrder) {
-      // Toggle the order if the same sorting criterion is selected
-      setAscending(!ascending);
+      setAscending(!ascending); // Toggle the order if the same sorting criterion is selected
     } else {
       setSortOrder(sortBy);
       setAscending(true); // Default to ascending order
@@ -57,9 +58,15 @@ const CountryList = () => {
 
   // Handle country deletion
   const handleDelete = (countryCode) => {
-    // Filter out the country with the given countryCode from the list
     const updatedCountries = countries.filter((country) => country.cca3 !== countryCode);
     setCountries(updatedCountries);
+  };
+
+  // Handle Reset Button Click
+  const handleReset = () => {
+    setCountries(originalCountries); // Reset the list to its original state
+    setSortOrder('name'); // Reset the sorting to 'name'
+    setAscending(true); // Reset the sort order to ascending
   };
 
   if (loading) return <div>Loading...</div>;
@@ -77,6 +84,10 @@ const CountryList = () => {
         </button>
         <button onClick={() => handleSortChange('population')}>
           Sort by Population {sortOrder === 'population' ? (ascending ? '↑' : '↓') : ''}
+        </button>
+        {/* Reset Button */}
+        <button onClick={handleReset} className="reset-button">
+          Reset
         </button>
       </div>
 
