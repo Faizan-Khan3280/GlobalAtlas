@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import './CountryDetails.css';
+import './CountryList.css';
+
+
 
 const CountryList = () => {
   const [countries, setCountries] = useState([]); // Countries with sorting applied
@@ -75,7 +77,7 @@ const CountryList = () => {
   const sortedCountries = sortCountries();
 
   return (
-    <div>
+    <div className='AllCountries'>
       <h1>List of Countries</h1>
 
       <div className="sort-controls">
@@ -94,13 +96,15 @@ const CountryList = () => {
       <ul>
         {sortedCountries.map((country) => (
           <li key={country.cca3}>
-            <div className="country-item">
-              <Link to={`/country/${country.cca3}`}>
-                <img src={country.flags.svg} alt={country.name.common} width="50" />
+            <div className="country-item-container">
+              <Link to={`/country/${country.cca3}`} className="country-item">
+                <img src={country.flags.svg} alt={country.name.common} width="80" />
                 <h2>{country.name.common}</h2>
                 <p>Population: {country.population.toLocaleString()}</p>
               </Link>
-              <button onClick={() => handleDelete(country.cca3)} className="delete-button">
+              <button 
+                onClick={() => handleDelete(country.cca3)} 
+                className="delete-button">
                 Delete
               </button>
             </div>
