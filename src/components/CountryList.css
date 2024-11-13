@@ -56,7 +56,7 @@ body {
     padding: 0;
     margin: 40px 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Flexibility for multiple columns */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexibility for multiple columns */
     gap: 20px;
     justify-content: center;
     padding: 0 20px;

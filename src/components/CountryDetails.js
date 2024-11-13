@@ -19,6 +19,7 @@ const CountryDetails = () => {
     population: '',
     area: '',
     currency: '',
+    flag: '', // New field for flag URL or base64 data
   });
 
   useEffect(() => {
@@ -31,6 +32,7 @@ const CountryDetails = () => {
           population: countryData.population,
           area: countryData.area,
           currency: countryData.currencies ? Object.values(countryData.currencies).map(currency => currency.name).join(", ") : 'N/A',
+          flag: countryData.flags.svg, // Default flag URL
         });
 
         if (countryData.borders) {
@@ -66,6 +68,20 @@ const CountryDetails = () => {
     });
   };
 
+  const handleFlagChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEditFormData({
+          ...editFormData,
+          flag: reader.result, // Use base64 encoding for the uploaded image
+        });
+      };
+      reader.readAsDataURL(file); // Convert file to base64
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you can perform a PUT or PATCH request to update the country's data
@@ -83,7 +99,7 @@ const CountryDetails = () => {
   const [lat, lng] = latlng || [0, 0]; 
 
   const markerIcon = new Icon({
-    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png',
+    iconUrl: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
@@ -96,8 +112,27 @@ const CountryDetails = () => {
       {country && (
         <>
           <h1>{country.name.common}</h1>
-          <img src={country.flags.svg} alt={country.name.common} width="200" />
           
+          {isEditing ? (
+            <div>
+              <label>Flag:</label>
+              {editFormData.flag && !editFormData.flag.startsWith('data:') ? (
+                <img src={editFormData.flag} alt="Current Flag" width="200" />
+              ) : (
+                <img src={editFormData.flag} alt="Current Flag" width="200" />
+              )}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFlagChange}
+              />
+            </div>
+          ) : (
+            <div>
+              <img src={country.flags.svg} alt={country.name.common} width="200" />
+            </div>
+          )}
+
           <div className="country-info">
             {isEditing ? (
               <form onSubmit={handleSubmit}>
@@ -149,8 +184,8 @@ const CountryDetails = () => {
                 <p><strong>Area:</strong> {country.area} km²</p>
                 <p><strong>Currency:</strong> {editFormData.currency}</p>
                 <p><strong>Timezones:</strong> {country.timezones ? country.timezones.join(", ") : 'N/A'}</p>
-                <p><strong>Demonym:</strong> {country.demonyms ? Object.values(country.demonyms).join(", ") : 'N/A'}</p>
-                <p><strong>Gini Index:</strong> {country.gini ? country.gini[0] : 'N/A'}</p>
+                {/* <p><strong>Demonym:</strong> {country.demonyms ? Object.values(country.demonyms).join(", ") : 'N/A'}</p> */}
+                {/* <p><strong>Gini Index:</strong> {country.gini ? country.gini[0] : 'N/A'}</p> */}
 
                 <button onClick={handleEditToggle}>Edit</button>
               </>

@@ -7,6 +7,9 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: #ffffff; /* White background inside the border */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;  /* Ensure it takes full width */
+  max-width: 350px; /* Limit max width */
+  margin: 10px;
 }
 
 .country-item-container:hover {
@@ -36,13 +39,240 @@
 
 /* Country Flag, Title, and Population Styling */
 .country-item img {
-  width: 80px;
-  height: 50px;
+  width: 100%;
+  max-width: 80px;
+  height: auto;
   object-fit: cover;
   border-radius: 5px;
   margin-bottom: 15px;
 }
 
+.country-item h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+
+.country-item p {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* Responsive Adjustments for Mobile and Tablets */
+@media (max-width: 1024px) {
+  .country-item-container {
+    max-width: 55%; /* Two items per row */
+    margin: 15px;
+    padding: 20px;
+  }
+
+  .delete-button {
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .country-item h2 {
+    font-size: 20px;  /* Slightly smaller heading */
+  }
+
+  .country-item p {
+    font-size: 14px;  /* Adjust paragraph font */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Full width for country containers on smaller screens */
+  .country-item-container {
+    max-width: 100%; /* Full width on mobile */
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .delete-button {
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .country-item h2 {
+    font-size: 18px;  /* Make the title smaller */
+  }
+
+  .country-item p {
+    font-size: 14px;  /* Make the paragraph smaller */
+  }
+
+  /* Make buttons full-width on mobile */
+  .sort-controls button,
+  .delete-button,
+  .reset-button {
+    width: 100%;
+    padding: 15px 0;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .country-item-container {
+    max-width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  .delete-button {
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+
+  .country-item h2 {
+    font-size: 16px;  /* Make heading smaller on very small screens */
+  }
+
+  .country-item p {
+    font-size: 12px;  /* Smaller text for paragraphs on small devices */
+  }
+
+  /* Adjust layout for small screens */
+  .country-item-container {
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  .country-item img {
+    max-width: 60px;  /* Reduce the image size on small screens */
+  }
+}
+
+/* General Container for All Items (if you have a container wrapping all country items) */
+.country-item-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;  /* Limit the width for larger screens */
+}
+/* Flag styling */
+.flag {
+  display: block;
+  margin: 20px auto;
+  width: 100%;  /* Allow flag to take full width of its container */
+  max-width: 120px; /* Set a maximum width to avoid flags getting too large on wide screens */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px;
+  object-fit: cover; /* Ensure the flag is cropped or resized properly */
+}
+
+/* Responsive Flag Adjustments for Mobile */
+@media (max-width: 768px) {
+  /* On mobile, we want the flag to be responsive and fill the container properly */
+  .flag {
+    width: 80%; /* Adjust width to a percentage for better responsiveness */
+    max-width: 100%; /* Ensure it doesn't exceed the width of its container */
+    margin: 10px auto; /* Reduce margin for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  /* On very small screens, we further reduce the flag size */
+  .flag {
+    width: 70%;  /* Decrease the flag size a bit more */
+    max-width: 100%; /* Ensure it doesn't stretch too wide */
+    margin: 10px auto; /* Center the flag with a smaller margin */
+  }
+}
+/* General reset and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Container that wraps all countries */
+.country-item-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the country items horizontally */
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px; /* Limit max width for large screens */
+  margin: 0 auto;
+}
+
+/* Country Card Container */
+.country-item-container {
+  border: 2px solid #ddd;  /* Light border around each country item */
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff; /* White background inside the border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;  /* Make the card take full width inside the container */
+  max-width: 350px; /* Limit max width */
+  margin: 10px; /* Add margin to separate the cards */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center; /* Center text inside the country card */
+}
+
+/* Hover effect on country card */
+.country-item-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Delete Button Styling (Positioned inside the container) */
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  position: absolute; /* Positioning it inside the country container */
+  top: 15px;
+  right: 15px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.delete-button:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+/* Flag styling */
+.flag {
+  display: block;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 120px; /* Set a maximum width for the flag */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px;
+  object-fit: cover; /* Ensure the flag doesn't stretch or distort */
+}
+
+/* Country Title and Paragraph Styling */
 .country-item h2 {
   font-size: 22px;
   font-weight: 700;
@@ -56,27 +286,46 @@
   margin-bottom: 10px;
 }
 
-/* Responsive Adjustments for Mobile */
+/* --- Mobile-Specific Styles --- */
+
+/* Responsive styles for mobile devices */
 @media (max-width: 768px) {
-  /* Full width for country containers on smaller screens */
+  /* Center the country cards on mobile */
+  .country-item-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center all country cards */
+    align-items: center; /* Vertically center if necessary */
+    padding: 10px;
+  }
+
+  /* Make each country card take up full width on mobile */
   .country-item-container {
-    padding: 15px;
+    width: 90%; /* Each card takes up 90% of the width */
+    max-width: none; /* Remove max-width for more flexibility */
+    margin: 15px auto; /* Center each card horizontally with margin */
   }
 
-  /* Adjust the delete button position for smaller screens */
-  .delete-button {
-    top: 10px;
-    right: 10px;
-    font-size: 12px;  /* Make the button text smaller on mobile */
-    padding: 8px 14px;
+  /* Flag size adjustments for smaller screens */
+  .flag {
+    width: 40%; /* Flag takes 80% of the width of the card */
+    max-width: 100%; /* Ensure it doesn't exceed its container width */
+    margin: 10px auto; /* Center the flag */
   }
 
-  /* Make the buttons full-width on mobile */
-  .sort-controls button,
-  .delete-button,
-  .reset-button {
-    width: 100%;
-    padding: 15px 0;
-    margin: 10px 0;
+  /* Title and Paragraph Font Adjustments */
+  .country-item h2 {
+    font-size: 18px; /* Smaller title font size on mobile */
+  }
+
+  .country-item p {
+    font-size: 14px; /* Smaller text size for mobile */
+  }
+
+  /* Button styling for mobile */
+  button {
+    font-size: 14px;
+    padding: 8px 15px;
   }
 }
+
